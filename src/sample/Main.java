@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import static sample.CommentReader.commentDeleter;
 
@@ -19,7 +20,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         this.primaryStage= primaryStage;
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Plag Catcher");
         primaryStage.setScene(new Scene(sceneCreator(), 300, 275));
         primaryStage.show();
     }
@@ -48,6 +49,8 @@ public class Main extends Application {
                 commentDeleter();
             } catch (FileNotFoundException fileNotFoundException) {
                 fileNotFoundException.printStackTrace();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
             }
         });
         primaryScene.getChildren().addAll(startButton);
