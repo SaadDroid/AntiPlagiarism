@@ -76,7 +76,8 @@ public class CommentReader
         System.out.println("File written Successfully");
     }
 
-    public static void deleteComment(File[] listOfFiles) throws IOException {
+    public static void deleteComment(File[] listOfFiles) throws IOException
+    {
         int fileNo= 0;
         for(File inputFile : listOfFiles)
         {
