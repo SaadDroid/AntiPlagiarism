@@ -16,7 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static sample.CommentReader.fileChooser;
-
+//main class
 public class Main extends Application {
 
     Stage primaryStage;
