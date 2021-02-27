@@ -5,10 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javafx.scene.text.Text;
@@ -18,7 +15,7 @@ public class CommentReader
     public static void fileChooser() throws IOException
     {
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setInitialDirectory(new File("src"));
+        directoryChooser.setInitialDirectory(new File("src\\Files"));
         Stage inputStage = new Stage();
         File folder = directoryChooser.showDialog(inputStage);
 //        inputStage.show();
@@ -123,10 +120,46 @@ public class CommentReader
                 if(tf==false && flag==false && line.length()!=0 && line.charAt(line.length()-1)!='/')
                     writer.write(line.charAt(line.length()-1));
 
-                writer.write('\n');
+//                writer.write('\n');
             }
 
             writer.close();
+            File out= new File("src\\Files\\outputFiles\\"+ inputFile.getName());
+            deleteExtraSpace(out);
         }
+    }
+
+    public static void deleteExtraSpace(File out) throws IOException
+    {
+//        File f1 = new File("d:/new folder/t1.htm");
+        ArrayList<String> codeLines = new ArrayList<String>();
+        ArrayList<String> outputLine = new ArrayList<String>();
+        Scanner reader= new Scanner(out);
+//        FileWriter writer= new FileWriter("src\\Files\\outputFiles\\" + out.getName());
+
+        while (reader.hasNext())
+            codeLines.add(reader.nextLine());
+
+        for(int i=0; i<codeLines.size(); i++)
+        {
+            String line= codeLines.get(i);
+            if(line.contains("    ")) {
+                line= line.replaceAll("    ", "");
+            }
+//            System.out.println(line);
+            outputLine.add(line);
+        }
+        FileWriter writer= new FileWriter("src\\Files\\outputFiles\\" + out.getName());
+        for (int i=0; i<outputLine.size(); i++) {
+            writer.append(outputLine.get(i));
+//            System.out.println(outputLine.get(i));
+        }
+        writer.close();
+//        FileWriter writer= new FileWriter("src\\Files\\outputFiles\\" + out.getName());
+
+//        for(int i=0; i<outputLine.size(); i++)
+//            System.out.println(outputLine.get(i));
+//            writer.write(outputLine.get(i));
+
     }
 }
