@@ -144,7 +144,7 @@ public class CommentReader
         {
             String line= codeLines.get(i);
             if(line.contains("    ")) {
-                line= line.replaceAll("    ", "");
+                line= line.replaceAll("    ", " ");
             }
 //            System.out.println(line);
             outputLine.add(line);
