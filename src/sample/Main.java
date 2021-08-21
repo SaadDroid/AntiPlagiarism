@@ -1,5 +1,7 @@
 package sample;
 
+import process.*;
+
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -10,12 +12,14 @@ import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import process.Process;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static sample.CommentReader.fileChooser;
+import static process.FileHash.*;
 //main class
 public class Main extends Application {
 
@@ -60,18 +64,27 @@ public class Main extends Application {
         startButton.setOnAction(e->{
             try {
                 fileChooser();
+                activate();
+
             } catch (FileNotFoundException fileNotFoundException) {
                 fileNotFoundException.printStackTrace();
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
+
+
         });
         primaryScene.getChildren().addAll(startButton);
 
         return primaryScene;
     }
 
+    private void activate() throws IOException {
 
+        Process process= new Process();
+        process.HashFolder();
+
+    }
 
     public static void main(String[] args) {
         launch(args);

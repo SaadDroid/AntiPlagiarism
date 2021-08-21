@@ -15,6 +15,7 @@ public class FileHash
 
     private HashMap<String, String> id= new HashMap<String, String>();
 
+    private String filePath;
     private String fileName;
 
     public HashMap<String, String> HashCalculator() throws FileNotFoundException
@@ -31,8 +32,10 @@ public class FileHash
             {
                 if(fileIt.isFile())
                 {
-                    fileName= fileIt.getAbsolutePath();
-                    File fileReader= new File(fileName);
+                    filePath= fileIt.getAbsolutePath();
+                    File fileReader= new File(filePath);
+
+                    fileName= fileIt.getName();
 
                     input= new Scanner(fileReader);
 
