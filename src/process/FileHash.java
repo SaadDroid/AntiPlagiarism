@@ -45,7 +45,7 @@ public class FileHash
                         String matcher= input.next();
 
                         for(String cKeyword : keywords.cKeyWord)
-                            if(matcher.equals(cKeyword))
+                            if(matcher.contains(cKeyword))
                             {
                                 hash+="cKeyWord_";
                                 found= true;
@@ -55,7 +55,7 @@ public class FileHash
                         if(found==true) continue;
 
                         for(String specialSymbol : keywords.specialSymbol)
-                            if(matcher.equals(specialSymbol))
+                            if(matcher.contains(specialSymbol))
                             {
                                 hash+="specialSymbol_";
                                 found= true;
@@ -65,7 +65,7 @@ public class FileHash
                         if(found==true) continue;
 
                         for(String pungchuator : keywords.pungchuator)
-                            if(matcher.equals(pungchuator))
+                            if(matcher.contains(pungchuator))
                             {
                                 hash+="pungchuator_";
                                 found= true;
