@@ -1,5 +1,13 @@
 package process;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+
+import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,9 +16,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import static sample.Main.mainScene;
+import static sample.Main.primaryStage;
+
 
 public class Process
 {
+    public static TextField input_ResultName= new TextField("Write output file name");
+    public static String resultName;
+    public static double[][] result;
     private FileHash fileHasher= new FileHash();
     private Map<String, String> stringFolder= new HashMap<String, String>();
     private String[] fileNames;
@@ -40,7 +54,7 @@ public class Process
             idx++;
         }
 
-        double[][] result= new double[fileNames.length][fileNames.length];
+        result= new double[fileNames.length][fileNames.length];
 
         for(int i=0; i<fileNames.length; i++)
         {
@@ -56,12 +70,56 @@ public class Process
                 else {
                     mxm = mat.stringMatching(hash[i], hash[j]);
                     per = calculation.calculate(hash[i].length(), hash[j].length(), mxm);
+                    per= Double.parseDouble(String.format("%.4f", per));
                 }
                 result[i][j]= per;
             }
         }
 
-        String resultName= new String("res");
+
+
+        primaryStage.show();
+
+
+        input_ResultName.setTranslateX(50);
+        input_ResultName.setTranslateY(20);
+        input_ResultName.setMinHeight(20);
+        input_ResultName.setMinWidth(100);
+
+
+        Button proceedButton= new Button("Proceed");
+        proceedButton.setTranslateX(50);
+        proceedButton.setTranslateY(100);
+
+
+        proceedButton.setOnAction(event -> {
+            if(!input_ResultName.getText().equals(""))
+            {
+                resultName = input_ResultName.getText();
+                System.out.println(resultName);
+            }
+            else
+                resultName = "Result";
+
+            try {
+                outputFileWriting();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            primaryStage.close();
+        });
+
+        Group resultNamingGrp= new Group();
+        resultNamingGrp.getChildren().addAll(input_ResultName, proceedButton);
+        Scene resultNamingScene= new Scene(resultNamingGrp, 300, 300);
+        primaryStage.setScene(resultNamingScene);
+
+//        System.out.println(resultName);
+
+    }
+
+    public void outputFileWriting() throws IOException {
         FileWriter csvWriter= new FileWriter("src\\Files\\result\\" + resultName+ ".csv");
 
         for (int i=0; i<=fileNames.length; i++)
@@ -79,7 +137,7 @@ public class Process
             csvWriter.append(",");
             for (int j = 0; j < fileNames.length; j++)
             {
-                csvWriter.append(String.valueOf(result[i][j]));
+                csvWriter.append(String.valueOf(result[i][j])+"%");
                 if(j!= fileNames.length-1)
                     csvWriter.append(",");
             }

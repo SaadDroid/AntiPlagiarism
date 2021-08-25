@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.scene.layout.StackPane;
 import process.*;
 
 import javafx.application.Application;
@@ -15,6 +16,7 @@ import javafx.stage.Stage;
 import process.Process;
 
 import java.awt.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -23,12 +25,14 @@ import static process.FileHash.*;
 //main class
 public class Main extends Application {
 
-    Stage primaryStage;
+    public static Stage primaryStage;
+    public static Scene mainScene;
     @Override
     public void start(Stage primaryStage) throws Exception{
         this.primaryStage= primaryStage;
         primaryStage.setTitle("Plagarism Catcher");
-        primaryStage.setScene(new Scene(sceneCreator(), 300, 275));
+        mainScene= new Scene(sceneCreator(), 300, 300);
+        primaryStage.setScene(mainScene);
 
         primaryStage.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             public void handle(KeyEvent ke) {
@@ -46,6 +50,22 @@ public class Main extends Application {
     {
         Group primaryScene= new Group();
 
+        Button flushButton= new Button("flush");
+        flushButton.setTranslateX(140);
+        flushButton.setTranslateY(20);
+        flushButton.setMinSize(50, 30);
+        flushButton.setOnAction(event -> {
+            File outputFolder= new File("G:\\Java Projects\\AntiPlagiarism\\src\\Files\\outputFiles");
+            File hashFolder= new File("G:\\Java Projects\\AntiPlagiarism\\src\\Files\\OutputHash");
+            File[] outputFiles= outputFolder.listFiles();
+            File[] hashFiles= hashFolder.listFiles();
+
+            for(File it : outputFiles)
+                it.delete();
+
+            for(File it : hashFiles)
+                it.delete();
+        });
 
         Button exitButton= new Button("exit");
         exitButton.setTranslateX(80);
@@ -54,7 +74,6 @@ public class Main extends Application {
         exitButton.setOnAction(e->{
             primaryStage.close();
         });
-        primaryScene.getChildren().addAll(exitButton);
 
 
         Button startButton= new Button("start");
@@ -74,7 +93,7 @@ public class Main extends Application {
 
 
         });
-        primaryScene.getChildren().addAll(startButton);
+        primaryScene.getChildren().addAll(startButton, exitButton, flushButton);
 
         return primaryScene;
     }
