@@ -137,7 +137,18 @@ public class Process
             csvWriter.append(",");
             for (int j = 0; j < fileNames.length; j++)
             {
-                csvWriter.append(String.valueOf(result[i][j])+"%");
+                String similarity= new String();
+
+                if(result[i][j]>=80)
+                    similarity= "High";
+                else if(result[i][j]>=65)
+                    similarity= "Moderate";
+                else if(result[i][j]>=50)
+                    similarity= "Low";
+                else
+                    similarity= "Very Low";
+
+                csvWriter.append(String.valueOf(similarity));
                 if(j!= fileNames.length-1)
                     csvWriter.append(",");
             }
