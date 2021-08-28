@@ -125,6 +125,7 @@ public class CommentReader
 
             writer.close();
             File out= new File("src\\Files\\outputFiles\\"+ inputFile.getName());
+//            return out;
             deleteExtraSpace(out);
         }
     }
