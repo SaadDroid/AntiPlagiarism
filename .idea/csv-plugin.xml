@@ -31,6 +31,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\src\Files\result\res.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\src\Files\result\result.csv">
           <value>
             <Attribute>
